@@ -1,4 +1,13 @@
-## Using Python to Querry a GeoJSON file
+# GIS in CODE
+---
+
+This repository shows various instances of automating GIS functionalities using code in any of the languages:
+
+Amongst these are:
+
+<br/><br/>
+
+1. ## Using Python to Querry a GeoJSON file
 
 Our object in creating this script was to know all those counties in Kenya that somehow lie within the 36 degree longitude.
 
@@ -9,3 +18,19 @@ if minLong <= 37 and maxLong > 36:
 ```
 
 We have then written the names of those counties that meet the stated criteria in a csv file (**CountiesWithin36Deg.csv**); alongside their repective 'Furthest West Longitude' and 'Furthest East Longitude'
+
+<br/><br/>
+
+2. ## Using Javascript to create a GEOJSON file for a circular feature
+
+DID YOU KNOW that for any given circle, however perfect its curvature may seem it is made up of very short straight lines?
+
+Ask, for examples, surveyors who set out curves during road constructions. Is it any wonder then why circles have tangents at almost any point on the surface.
+
+**This JS code shows just that: a series of straight short lines that renders as a perfect circle.**
+
+The CircleGeoJson function is called by an object of three keys: lng, lat and radius.
+
+See the generated shape in the any geospatial platform capable of rendering geojson files. You may also use [GeoJson Visualizer](http://geojson.tools/).
+
+NOTE: The further the latitude is from the equator the chances the deformation of the circle. This is because the geojson web tool refered above displays the circle considering the speherical nature of the planet.
