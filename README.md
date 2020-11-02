@@ -7,7 +7,7 @@ This repository shows various instances of automating GIS functionalities using 
 
 Amongst these are:
 
-<br/><br/>
+<br/>
 
 1. ## Using Python to Querry a GeoJSON file
 
@@ -21,13 +21,13 @@ if minLong <= 37 and maxLong > 36:
 
 We have then written the names of those counties that meet the stated criteria in a csv file (**CountiesWithin36Deg.csv**); alongside their repective 'Furthest West Longitude' and 'Furthest East Longitude'
 
-<br/><br/>
+<br/>
 
 2. ## Using Javascript to create a GEOJSON file for a circular feature
 
 DID YOU KNOW that for any given circle, however perfect its curvature may seem it is made up of very short straight lines?
 
-Ask, for example, surveyors who set out curves during road constructions. All they do is to work out bearings and angles for straight lines-- albeit short ones. Is it any wonder then why circles have tangents at almost any point on the surface? Now you know why a circular surfaces can have lines intersecting a point at 90 degrees.
+Ask, for example, surveyors who set out curves during road constructions. All they do is to work out bearings and distances for straight lines-- albeit short ones. Is it any wonder then why circles have tangents at almost any point on the surface? Now you know why a circular surfaces can have lines intersecting a point at 90 degrees.
 
 **This JS code shows just that: a series of straight short lines that renders as a perfect circle.**
 
