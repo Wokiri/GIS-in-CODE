@@ -1,9 +1,12 @@
-const toRadian = deg => deg * Math.PI / 180
-
 const toDegree = rad => rad * 180 / Math.PI
+
+const toRadian = deg => deg * Math.PI / 180
 
 const a = 6378137.00
 
+const roundoff = (num, dp) => Number(Math.round(num + 'e' + dp) + 'e-' + dp)
+
+// The formulas used to derive the Spherical Web Mercator coordinates from ellipsoid Latitude and Longitude:
 const geo_webMercator = (long, lat) => {
 
     const longRads = toRadian(long)
@@ -22,6 +25,19 @@ const weMercator_geo = (easting, northing) => {
     const latRads = Math.tanh(Math.asin((northing / a)))
 
     return [toDegree(longRads), toDegree(latRads)]
+}
+
+
+// This formula gives you the distance in meters for the radius
+const Radial_Distance = (cent, angle) => {
+
+    const pointA = geo_webMercator(cent.long, cent.lat)
+    const pointB = geo_webMercator(cent.long + angle, cent.lat + angle)
+
+    const dx = Math.abs(pointA[0] - pointB[0])
+    const dy = Math.abs(pointA[1] - pointB[1])
+
+    return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2))
 }
 
 
@@ -50,16 +66,22 @@ const CircleGeoJson = cent => {
 
     const Rm = linear_Polar()
 
-    let circle = {
-        type: "Polygon",
-        coordinates: [
-            [
-
-            ]
-        ]
+    let circularArea = {
+        type: "FeatureCollection",
+        name: 'CircularArea',
+        crs: { type: "name", properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+        features: [{
+            type: "Feature",
+            geometry: {
+                type: "Polygon",
+                coordinates: [
+                    []
+                ]
+            }
+        }]
     }
 
-    let mainHolder = circle['coordinates'][0]
+    let theCoordinates = circularArea['features'][0]['geometry']['coordinates'][0]
 
     for (let i = 0; i <= segments; i++) {
 
@@ -74,11 +96,13 @@ const CircleGeoJson = cent => {
         xi = XOrigin + dx
         yi = YOrigin + dy
 
-        mainHolder[i] = [xi, yi]
+        // Rounded off to 5 dp
+        theCoordinates[i] = [roundoff(xi, 5), roundoff(yi, 5)]
 
     }
 
-    return JSON.stringify(circle)
+    return JSON.stringify(circularArea)
 }
 
-console.log(CircleGeoJson({ lng: 36, lat: 0, radius: 2000 }))
+
+console.log(CircleGeoJson({ lng: 36.8, lat: -1.3, radius: 2000 }))
